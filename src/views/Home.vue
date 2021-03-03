@@ -1,0 +1,29 @@
+<template>
+  <div class="home">
+    <nav-banner></nav-banner>
+    <products-list></products-list>
+    <about-us></about-us>
+    <about-news></about-news>
+  </div>
+</template>
+
+<script>
+import NavBanner from "@/components/Home/NavBanner.vue";
+import ProductsList from "@/components/ProductsList.vue";
+import AboutUs from "@/components/AboutUs.vue";
+import AboutNews from "@/components/AboutNews.vue";
+
+export default {
+  name: "Home",
+  components: {
+    NavBanner,
+    ProductsList,
+    AboutUs,
+    AboutNews
+  }
+};
+</script>
+<style lang="stylus" scoped>
+.home
+  margin-bottom:60px
+</style>
