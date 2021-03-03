@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2559527",
+      "name": "星号",
+      "font_class": "required",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "7155218",
+      "name": "菜单",
+      "font_class": "caidan",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
       "icon_id": "6076864",
       "name": "斜体",
       "font_class": "Italic",
@@ -46,13 +60,6 @@
       "font_class": "daohang",
       "unicode": "e77d",
       "unicode_decimal": 59261
-    },
-    {
-      "icon_id": "9244890",
-      "name": "导航",
-      "font_class": "daohang1",
-      "unicode": "e626",
-      "unicode_decimal": 58918
     },
     {
       "icon_id": "9626918",

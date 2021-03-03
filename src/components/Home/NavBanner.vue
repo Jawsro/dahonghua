@@ -2,7 +2,8 @@
   <div class="hello">
     <div class="top">
       <div class="left-nav">
-        <span class="iconfont icon-daohang"></span>
+        <span class="iconfont icon-daohang" v-show="!sideBar" @click="openSideBar"></span>
+        <span class="iconfont icon-caidan" v-show="sideBar" @click="closeSideBar"></span>
         <div class="nav-text">导航</div>
       </div>
       <div class="search">
@@ -15,8 +16,14 @@
     </div>
     <div class="banner">
       <img src="@/assets/img/banner.jpg" alt="">
+      <div class="sidebar" v-show="sideBar">
+        <van-sidebar v-model="activeKey">
+          <van-sidebar-item title="产品中心" to="/"/>
+          <van-sidebar-item title="公司简介" />
+          <van-sidebar-item title="新闻动态" />
+        </van-sidebar>
+      </div>
     </div>
-   
   </div>
 </template>
 
@@ -26,16 +33,31 @@ export default {
   data() {
     return {
       value: '',
+      activeKey: 0,
+      sideBar:false
     };
   },
+  methods:{
+    openSideBar(){
+      this.sideBar = !this.sideBar;
+      console.log(this.sideBar)
+    },
+    closeSideBar(){
+      this.sideBar = !this.sideBar;
+      console.log(this.sideBar)
+    }
+  }
 };
 </script>
 <style scoped lang="stylus">
 @import '../../assets/css/common.styl'
-.top /deep/ .van-search
+.hello /deep/ .van-search
   height:100%
   border-radius:6px
   padding:4px 12px
+.hello /deep/ .van-sidebar-item
+  background-color:rgba(0,0,0,0.8)
+  color:#fff
 .top
   display:flex
   justify-content:center
@@ -47,6 +69,8 @@ export default {
     flex:1
     text-align:center
     .icon-daohang
+      font-size:$font-size-large-x
+    .icon-caidan
       font-size:$font-size-large-x
     .nav-text
       font-size:$font-size-medium
@@ -60,6 +84,8 @@ export default {
     .nav-text
       font-size:$font-size-medium
 .banner
-  img
-    width:100%
+  position: relative
+.sidebar
+  position: absolute
+  top:0
 </style>
