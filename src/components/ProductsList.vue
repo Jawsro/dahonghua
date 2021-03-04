@@ -5,7 +5,7 @@
         <span class="margin-r">产品中心<span class="iconfont icon-Italic"></span></span>
         <span>Products</span>
       </h6>
-      <div class="rigth-icon">
+      <div class="rigth-icon" @click="goProducts" v-show="iconIshow">
         <span class="iconfont icon-jiahao"></span>
       </div>
     </div>
@@ -26,6 +26,14 @@ export default {
       ]
     };
   },
+  props:{
+    iconIshow:Boolean
+  },
+  methods:{
+    goProducts(){
+      this.$router.push('/products')
+    },
+  }
 };
 </script>
 <style scoped lang="stylus">

@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Shopping from "../views/Shopping.vue";
 import CallPhone from "../views/CallPhone.vue";
 import Navigation from "../views/Navigation.vue";
+import Products from "../views/Products.vue";
 
 Vue.use(VueRouter);
 
@@ -21,11 +22,14 @@ const routes = [
     path: "/callphone",
     name: "CallPhone",
     component: CallPhone
-  },
-  {
+  },{
     path: "/navigation",
     name: "Navigation",
     component: Navigation
+  },{
+    path: "/products",
+    name: "Products",
+    component: Products
   },
 ];
 

@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <nav-banner></nav-banner>
-    <products-list></products-list>
+    <products-list :iconIshow="iconIshow"></products-list>
     <about-us></about-us>
     <about-news></about-news>
   </div>
@@ -20,6 +20,11 @@ export default {
     ProductsList,
     AboutUs,
     AboutNews
+  },
+  data(){
+    return{
+      iconIshow:true
+    }
   }
 };
 </script>
