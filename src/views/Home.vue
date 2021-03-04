@@ -24,6 +24,7 @@ export default {
 };
 </script>
 <style lang="stylus" scoped>
+@import '../assets/css/common.styl'
 .home
-  margin-bottom:60px
+  margin-bottom:$margin-bottom
 </style>

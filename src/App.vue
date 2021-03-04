@@ -7,13 +7,13 @@
           <span class="iconfont icon-shouye" :class="props.active ? 'avtive' : 'inactive'"></span>
         </template>
       </van-tabbar-item>
-      <van-tabbar-item >
+      <van-tabbar-item to="/callphone">
         <span>拨号</span>
         <template #icon="props">
           <span class="iconfont icon-dianhua" :class="props.active ? 'avtive' : 'inactive'"></span>
         </template>
       </van-tabbar-item>
-      <van-tabbar-item >
+      <van-tabbar-item to="/navigation">
         <span>地址</span>
         <template #icon="props">
           <span class="iconfont icon-dizhi" :class="props.active ? 'avtive' : 'inactive'"></span>
@@ -37,6 +37,19 @@
         active: 0
       };
     },
+    watch: {
+    '$route'(to) {
+      if (to.path == "/") {
+          this.active = 0;
+      } else if (to.path == "/callphone") {
+          this.active = 1;
+      } else if (to.path == "/navigation") {
+          this.active = 2;
+      } else if (to.path == "/shopping" ) {
+          this.active = 3;
+      }
+    }
+  },
   };
 </script>
 <style lang="stylus">

@@ -5,38 +5,45 @@
       <van-form @submit="onSubmit">
         <van-field
           v-model="subject"
-          name="主题"
-          label="主题：">
+          name="subject"
+          label="主题："
+          :rules="[{ required: true, message: '请填写主题' }]">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
           v-model="userName"
-          name="姓名"
-          label="姓名：">
+          name="userName"
+          label="姓名："
+          :rules="[{ required: true, message: '请填写姓名' }]">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
           v-model="phone"
-          name="电话"
-          label="电话：">
+          type="tel"
+          name="phone"
+          label="电话："
+          :rules="[{ pattern, message: '请填写正确手机号' }]">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
           v-model="email"
-          name="邮箱"
-          label="邮箱：">
+          name="email"
+          label="邮箱："
+          :rules="[{ required: true, message: '请填写正确邮箱' }]">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
           v-model="companyName"
-          name="公司名称"
-          label="公司名称：">
+          name="companyName"
+          label="公司名称："
+          :rules="[{ required: true, message: '请填写公司名称' }]">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
           v-model="adress"
-          name="联系地址"
-          label="联系地址：">
+          name="adress"
+          label="联系地址："
+          :rules="[{ required: true, message: '请填写联系地址' }]">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
@@ -44,19 +51,25 @@
           rows="3"
           maxlength="200"
           show-word-limit
-          name="订购信息"
+          name="message"
           label="订购信息："
+          :rules="[{ required: true, message: '请填写订购信息' }]"
           type="textarea">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
-        <div class="submit-btn"><van-button block  native-type="submit" size="normal">提交</van-button> </div>
+        <div class="submit-btn">
+          <van-button block  
+            native-type="submit" 
+            size="normal"
+            :disabled="submitDisabled">提交</van-button> 
+        </div>
       </van-form>
     </div>
   </div>
 </template>
 
 <script>
-
+let submitLocks =false;
 export default {
   name: "Shopping",
   data(){
@@ -67,18 +80,28 @@ export default {
       email:'',
       phone:'',
       adress:'',
-      message:''
+      message:'',
+      submitDisabled:false,
+      pattern:/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/,
     }
   },
    methods: {
     onSubmit(values) {
       console.log('submit', values);
+      if(submitLocks){
+        return false ;
+      }
+      submitLocks = true;
     },
   },
 };
 </script>
 <style lang="stylus" scoped>
 @import '../assets/css/common.styl'
+.shopping /deep/ .van-field__left-icon
+  padding:5px 0
+.shopping /deep/ .van-field__control
+  padding:5px
 .shopping /deep/ .van-button--default
   background:$color-banckground
   color:#fff
@@ -92,12 +115,14 @@ export default {
   border:1px solid #E6E6E6
 .shopping /deep/ .van-field__label
   width:5em
+  padding:5px 0
 .icon-required
   color:red
 .shopping
   padding:$main-padding
+  margin-bottom:$margin-bottom
   .title
-    padding:$padding-small
+    padding:$padding-small $padding-small $padding-small 0
     font-size:$font-size-large
     border-bottom:1px solid #E6E6E6
   .submit-btn

@@ -9,7 +9,7 @@
       <div class="search">
         <van-search v-model="value" placeholder="请输入搜索关键词" />
       </div>
-      <div class="shopping">
+      <div class="shopping" @click="goShopping">
         <span class="iconfont icon-edit"></span>
         <div class="nav-text">立即订购</div>
       </div>
@@ -45,7 +45,10 @@ export default {
     closeSideBar(){
       this.sideBar = !this.sideBar;
       console.log(this.sideBar)
-    }
+    },
+    goShopping(){
+      this.$router.push('/shopping')
+    },
   }
 };
 </script>
