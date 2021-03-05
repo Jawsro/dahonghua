@@ -7,6 +7,8 @@ import Navigation from "../views/Navigation.vue";
 import Products from "../views/Products.vue";
 import ProductCenter from "../views/ProductCenter.vue";
 import Case from "../views/Case.vue";
+import CompanyProfile from "../views/CompanyProfile.vue";
+import NewsCenter from "../views/NewsCenter.vue";
 
 Vue.use(VueRouter);
 
@@ -40,6 +42,14 @@ const routes = [
     path: "/case",
     name: "Case",
     component: Case
+  },{
+    path: "/companyprofile",
+    name: "CompanyProfile",
+    component: CompanyProfile
+  },{
+    path: "/newscenter",
+    name: "NewsCenter",
+    component: NewsCenter
   },
 ];
 

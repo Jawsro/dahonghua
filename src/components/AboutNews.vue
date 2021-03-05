@@ -32,8 +32,8 @@
       </div>
     </div>
     <div class="morenews">
-      <span>查看更多</span>
-      <span class="iconfont icon-dayuhao"></span>
+      <span @click="goNewsCenter">查看更多</span>
+      <span class="iconfont icon-dayuhao" @click="goNewsCenter"></span>
     </div>
   </div>
 </template>
@@ -75,6 +75,9 @@ export default {
     changeIndustryNews(id){
       this.IndustryNewsId=id;
     },
+    goNewsCenter(){
+      this.$router.push({path:"/newscenter",query:{index:this.index}})
+    }
   }
 };
 </script>

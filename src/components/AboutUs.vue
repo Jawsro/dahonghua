@@ -5,7 +5,7 @@
         <span class="margin-r">公司介绍<span class="iconfont icon-Italic"></span></span>
         <span>About Us</span>
       </h6>
-      <div class="rigth-icon">
+      <div class="rigth-icon" @click="goCompany">
         <span class="iconfont icon-jiahao"></span>
       </div>
     </div>
@@ -22,12 +22,16 @@
 </template>
 <script>
 export default {
-  name: "AboutUs",
   data() {
     return {
      
     };
   },
+  methods:{
+    goCompany(){
+      this.$router.push("/companyprofile")
+    }
+  }
 };
 </script>
 <style scoped lang="stylus">

@@ -19,8 +19,8 @@
       <div class="sidebar" v-show="sideBar">
         <van-sidebar v-model="activeKey">
           <van-sidebar-item title="产品中心" to="/products"/>
-          <van-sidebar-item title="公司简介" />
-          <van-sidebar-item title="新闻动态" />
+          <van-sidebar-item title="公司简介" to="companyprofile"/>
+          <van-sidebar-item title="新闻动态" to="/newscenter"/>
           <van-sidebar-item title="案例锦集" to="/case"/>
         </van-sidebar>
       </div>
@@ -41,11 +41,9 @@ export default {
   methods:{
     openSideBar(){
       this.sideBar = !this.sideBar;
-      console.log(this.sideBar)
     },
     closeSideBar(){
       this.sideBar = !this.sideBar;
-      console.log(this.sideBar)
     },
     goShopping(){
       this.$router.push('/shopping')
