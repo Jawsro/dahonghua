@@ -10,8 +10,9 @@
       </div>
     </div>
     <div class="main">
-      <div class="item" v-for="(item,index) in productsList" :key="index">
-        <img :src="item" alt="">
+      <div class="item" v-for="(item,index) in productsList" :key="index"
+        @click="goProductsDetadil(item.id,item.text)">
+        <img :src="item.src" alt="">
       </div>
     </div>
   </div>
@@ -22,7 +23,8 @@ export default {
   data() {
     return {
       productsList:[
-       require("@/assets/img/q.png"),require("@/assets/img/q.png")
+        {id:1,src:require("@/assets/img/q.png"),text:"果蔬堆码"},
+        {id:2,src:require("@/assets/img/q.png"),text:"不锈钢蔬果架"}
       ]
     };
   },
@@ -33,6 +35,9 @@ export default {
     goProducts(){
       this.$router.push('/products')
     },
+    goProductsDetadil(id,name){
+      this.$router.push({path:'/productcenter',query:{id,name}})
+    }
   }
 };
 </script>

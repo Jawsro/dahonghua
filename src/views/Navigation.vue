@@ -8,7 +8,7 @@
     </div>
     <div @click="goNavigation" class="adress">
       <span style="margin-right:8px">地址：</span>
-      <span>武汉市硚口区操场角6号汉华花园b座11- 5号</span>
+      <span class="adress-text">武汉市硚口区操场角6号汉华花园b座11- 5号</span>
     </div>
   </div>
 </template>
@@ -36,4 +36,9 @@ export default {
     padding:$padding-small 0
   .adress
     font-size:$font-size-medium
+    .adress-text
+      color:#129044
+      display:inline-block
+      border-bottom:1px #129044 dashed
+      margin-right:$padding-small
 </style>

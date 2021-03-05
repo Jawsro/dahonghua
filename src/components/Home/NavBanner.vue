@@ -18,9 +18,10 @@
       <img src="@/assets/img/banner.jpg" alt="">
       <div class="sidebar" v-show="sideBar">
         <van-sidebar v-model="activeKey">
-          <van-sidebar-item title="产品中心" to="/"/>
+          <van-sidebar-item title="产品中心" to="/products"/>
           <van-sidebar-item title="公司简介" />
           <van-sidebar-item title="新闻动态" />
+          <van-sidebar-item title="案例锦集" to="/case"/>
         </van-sidebar>
       </div>
     </div>
