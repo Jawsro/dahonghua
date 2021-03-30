@@ -9,10 +9,12 @@
         <span class="iconfont icon-jiahao"></span>
       </div>
     </div>
+    <!--@click="goProductsDetadil(item.id,item.name)"-->
     <div class="main">
-      <div class="item" v-for="(item,index) in productsList" :key="index"
-        @click="goProductsDetadil(item.id,item.text)">
-        <img :src="item.src" alt="">
+      <div class="item" v-for="(item,index) in productsImg" :key="index"
+        v-show='index<4'
+        >
+        <img :src="item.image_url" alt="">
       </div>
     </div>
   </div>
@@ -20,24 +22,18 @@
 <script>
 export default {
   name: "ProductsList",
-  data() {
-    return {
-      productsList:[
-        {id:1,src:require("@/assets/img/q.png"),text:"果蔬堆码"},
-        {id:2,src:require("@/assets/img/q.png"),text:"不锈钢蔬果架"}
-      ]
-    };
-  },
+  data() { return {};},
   props:{
-    iconIshow:Boolean
+    iconIshow:Boolean,
+    productsImg:Array
   },
   methods:{
     goProducts(){
       this.$router.push('/products')
     },
-    goProductsDetadil(id,name){
-      this.$router.push({path:'/productcenter',query:{id,name}})
-    }
+    // goProductsDetadil(id,name){
+    //   this.$router.push({path:'/productcenter',query:{id,name}})
+    // }
   }
 };
 </script>

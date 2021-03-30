@@ -9,6 +9,7 @@ import ProductCenter from "../views/ProductCenter.vue";
 import Case from "../views/Case.vue";
 import CompanyProfile from "../views/CompanyProfile.vue";
 import NewsCenter from "../views/NewsCenter.vue";
+import ContenDetail from "../views/ContenDetail.vue";
 
 Vue.use(VueRouter);
 
@@ -50,6 +51,12 @@ const routes = [
     path: "/newscenter",
     name: "NewsCenter",
     component: NewsCenter
+  },
+  {
+    path: "/contendetail",
+    name: "ContenDetail",
+    component: ContenDetail,
+    
   },
 ];
 

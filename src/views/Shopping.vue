@@ -11,16 +11,16 @@
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
-          v-model="userName"
-          name="userName"
+          v-model="username"
+          name="username"
           label="姓名："
           :rules="[{ required: true, message: '请填写姓名' }]">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
-          v-model="phone"
+          v-model="tel_num"
           type="tel"
-          name="phone"
+          name="tel_num"
           label="电话："
           :rules="[{ pattern, message: '请填写正确手机号' }]">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
@@ -33,25 +33,25 @@
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
-          v-model="companyName"
-          name="companyName"
+          v-model="company_name"
+          name="company_name"
           label="公司名称："
           :rules="[{ required: true, message: '请填写公司名称' }]">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
-          v-model="adress"
-          name="adress"
+          v-model="address"
+          name="address"
           label="联系地址："
           :rules="[{ required: true, message: '请填写联系地址' }]">
           <template v-slot:left-icon><span class="iconfont icon-required"></span></template>
         </van-field>
         <van-field
-          v-model="message"
+          v-model="order_info"
           rows="3"
           maxlength="200"
           show-word-limit
-          name="message"
+          name="order_info"
           label="订购信息："
           :rules="[{ required: true, message: '请填写订购信息' }]"
           type="textarea">
@@ -70,17 +70,19 @@
 
 <script>
 let submitLocks =false;
+import {setOrderForm} from "../assets/js/api.js";
+import {Dialog} from 'vant';
 export default {
   name: "Shopping",
   data(){
     return{
       subject:'',
-      companyName:'',
-      userName:'',
+      username:'',
+      tel_num:'',
       email:'',
-      phone:'',
-      adress:'',
-      message:'',
+      company_name:'',
+      address:'',
+      order_info:'',
       submitDisabled:false,
       pattern:/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/,
     }
@@ -91,7 +93,32 @@ export default {
       if(submitLocks){
         return false ;
       }
+      let data = {
+        subject:values.subject,
+        username:values.username,
+        tel_num:values.tel_num,
+        email:values.email,
+        company_name:values.company_name,
+        address:values.address,
+        order_info:values.order_info
+      }
       submitLocks = true;
+      this.submitDisabled = true;
+      setOrderForm(data).then(res =>{
+        console.log(res)
+        if(res.status == true){
+          Dialog.alert({
+            title: '提示',
+            message: res.msg,
+          }).then(() => {
+              setTimeout(()=>{
+                location.reload();
+                submitLocks = false;
+                this.submitDisabled = false;
+              },2000)
+            })
+        }
+      })
     },
   },
 };

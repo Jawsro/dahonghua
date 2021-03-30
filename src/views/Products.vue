@@ -12,22 +12,43 @@
       </van-swipe>
     </div>
     <div class="product-sort">
-      <van-grid  :column-num="4">
-        <van-grid-item v-for="item in productSort" :key="item.id" :to="{path:'/productcenter',query:{id:item.id,name:item.text}}">
-           <img :src="item.src" alt="" class="product-sort-img">
-           <p class="product-sort-name">{{item.text}}</p>
-        </van-grid-item>
-      </van-grid>
+      <van-tabs v-model="active" @click='changeNewsTitle'>
+        <van-tab :title="item.type_name" 
+          v-for="(item,index) in productsSortList" 
+          :key="index">
+            <van-tabs  @click='changeLevel2'>
+              <van-tab v-for="sortitem in sortList" :title="sortitem.type_name" :key="sortitem.id">
+                <van-grid :border="false" :column-num="3">
+                    <van-grid-item  v-for="(item,index) in productsImg" 
+                    :key="index" >
+                    <van-image :src="item.image_url" />
+                    <p style='padding:10px 0'>{{item.name}}</p>
+                  </van-grid-item>
+                </van-grid>
+              </van-tab>
+            </van-tabs>
+          </van-tab>
+      </van-tabs>
+      <div class="pages">
+        <van-pagination v-model="page" :page-count="total" mode="simple" @change='changePage'/>
+     </div>
     </div>
   </div>
 </template>
 <script>
-
+import {getProductType,getProductList} from "../assets/js/api.js";
 export default {
   name: "Products",
   data(){
     return{
-       images: [
+        active:0,//当前显示的一级分类
+        sortList:[],//二级分类
+        productsSortList:[],//产品一级分类
+        productsImg:[],//产品列表
+        type_level2Id:0,
+        page:1,
+        total:0,
+        images: [
          require("@/assets/img/products.jpg"),
          require("@/assets/img/products2.jpg"),
          require("@/assets/img/products3.jpg"),
@@ -35,19 +56,55 @@ export default {
          require("@/assets/img/products5.jpg"),
          require("@/assets/img/products6.jpg"),
       ],
-      productSort:[
-        {id:1,src:"http://weixin.gxshangyou.com/Uploads/_image/20160126/1453777306426798.jpg",text:"钢木果蔬架"},
-        {id:2,src:"http://weixin.gxshangyou.com/Uploads/f/fxqjts1453703358/4/4/3/9/thumb_5754eaa8a0806.jpg",text:"情景促销堆"},
-        {id:3,src:"http://weixin.gxshangyou.com/Uploads/_image/20160606/1465180237997860.jpg",text:"五谷杂粮区"},
-        {id:4,src:"http://weixin.gxshangyou.com/Uploads/f/fxqjts1453703358/8/c/4/a/thumb_5754eb42cca08.JPG",text:"散称干货区"},
-        {id:5,src:"http://weixin.gxshangyou.com/Uploads/f/fxqjts1453703358/1/b/6/d/thumb_5754ea516d472.JPG",text:"冰鲜台区"}
-      ]
     }
+  },
+  created(){
+    this._getProductType()
   },
   methods:{
     gobanck(){
       this.$router.go(-1);
-    }
+    },
+    //获取产品分类
+    _getProductType(){
+      getProductType({}).then( res => {
+        if(res.status == true){
+          this.productsSortList = res.data.type_level1
+          this.sortList = res.data.type_level1[this.active].type_level2;
+          let id = res.data.type_level1[0].type_level2[0].id;
+          this.type_level2Id = id;
+          this._getProductList(id)
+        }
+      })
+    },
+     //产品列表
+    _getProductList(id){
+      let data = {
+        type_id :id,
+        page_count:9,
+        page:this.page
+      }
+      getProductList(data).then( res =>{
+         if(res.status == true){
+           this.productsImg = res.data.list
+           this.total = Math.ceil(parseInt(res.data.total)/10);
+         }
+      })
+    },
+    changeNewsTitle(name){
+      this.active =name;
+      this.page = 1;
+      this.sortList = this.productsSortList[this.active].type_level2 || []
+    },
+    changeLevel2(name){
+      this.type_level2Id = this.sortList[name].id;
+      this.page = 1;
+      this._getProductList(this.type_level2Id)
+    },
+    changePage(val){
+      this.page = val;
+      this._getProductList(this.type_level2Id)
+    },
   }
 };
 </script>

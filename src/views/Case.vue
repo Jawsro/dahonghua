@@ -5,34 +5,64 @@
       <p class="name">案例锦集</p>
     </h4>
     <div class="case-list">
-      <div class="items" v-for="(item,index) in Case" :key="index">
-        <img :src="item" alt="">
-      </div>
+      <van-list
+        v-model="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        @load="onLoad"
+      >
+        <div class="items" v-for="(item,index) in Case" :key="index">
+          <img :src="item.image_url" alt="">
+        </div>
+      </van-list>
+      
     </div>
   </div>
 </template>
 
 <script>
-
+import {getCaseList} from "../assets/js/api.js";
 export default {
   name: "Case",
   data(){
     return{
-      Case:[
-        "http://weixin.gxshangyou.com/Uploads/_image/20160125/1453711515681380.jpg",
-        "http://weixin.gxshangyou.com/Uploads/_image/20160125/1453711519234412.jpg",
-        "http://weixin.gxshangyou.com/Uploads/_image/20160125/1453711524435282.jpg",
-        "http://weixin.gxshangyou.com/Uploads/_image/20160125/1453711534892602.jpg",
-        "http://weixin.gxshangyou.com/Uploads/_image/20160125/1453711545899180.jpg",
-        "http://weixin.gxshangyou.com/Uploads/_image/20160125/1453711555327027.jpg"
-      ]
+      Case:[],
+      page:1,
+      loading: false,
+      finished: false,
     }
+  },
+  created(){
+    this._getCaseList()
   },
   methods:{
     gobanck(){
       this.$router.go(-1);
+    },
+    _getCaseList(){
+      let data = {
+        page_count:4,
+        page:this.page
+      }
+      getCaseList(data).then(res => {
+        this.finished = false;
+        if(res.status == true){
+          this.Case = this.Case.concat(res.data.list)
+          this.loading = false;
+          
+          if( this.Case.length>=res.data.total){
+              this.finished = true;
+          }
+        }
+      })
+    },
+    onLoad(){
+      this.page ++;
+      this._getCaseList();
+      console.log(1212)
     }
   }
+
 };
 </script>
 <style lang="stylus" scoped>

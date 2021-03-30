@@ -2,78 +2,83 @@
   <div class="about-news"> 
     <div class="title">
       <h6 class="company-news" 
-        v-for="item in newsTitle" 
+        v-for="(item,index) in newsTitle" 
         :key="item.id"
-        :class="index==item.id?'active' :'inactive'"
-        @click="changeNewsTitle(item.id)"> 
-        {{item.text}} 
+        :class="titleIndex==index?'active' :'inactive'"
+        @click="changeNewsTitle(index,item.id)"> 
+        {{item.type_name}} 
       </h6>
     </div>
     <!-- 公司新闻-->
-    <div class="news-list" v-show="newsIshow">
+    <div class="news-list" v-show='CompanyNews.length>0'>
       <div class="item"
-      v-for="item in CompanyNews"
+      v-for="(item,index) in CompanyNews"
       :key="item.id"
-      :class="newsId==item.id?'news-avtive' :''"
+      v-show ='index <5'
       @click="changeNews(item.id)">
         <span class="iconfont icon-dayuhao"></span>
         <p class="news-title">{{item.title}}</p>
       </div>
     </div>
-    <!-- 行业新闻-->
-    <div class="news-list" v-show="!newsIshow">
-      <div class="item"
-      v-for="item in IndustryNews"
-      :key="item.id"
-      @click="changeIndustryNews(item.id)"
-      :class="IndustryNewsId==item.id?'news-avtive' :''">
-        <span class="iconfont icon-dayuhao"></span>
-        <p class="news-title">{{item.title}}</p>
+    <div class="news-list" v-show='CompanyNews.length<1'>
+      <div class="item">
+        暂无数据
       </div>
     </div>
-    <div class="morenews">
+    <div class="morenews" v-show='CompanyNews.length>0'>
       <span @click="goNewsCenter">查看更多</span>
       <span class="iconfont icon-dayuhao" @click="goNewsCenter"></span>
     </div>
   </div>
 </template>
 <script>
+import {getNewsList,getNewsType} from "../assets/js/api.js";
 export default {
   name: "AboutNews",
   data() {
     return {
-      index:0,
-      newsTitle:[
-        {id:0,text:"公司新闻"},
-        {id:1,text:"行业新闻"}
-     ],
-     newsId:1,
-     CompanyNews:[
-       {id:1,title:"热烈祝贺湖北大红花商用设备有限公司改版成功改版成功!"},
-       {id:2,title:"热烈祝贺湖北大红花商用设备有限公司改版成功!"}
-     ],
-     IndustryNewsId:1,
-      IndustryNews:[
-       {id:1,title:"湖北大红花商用设备有限公司!"},
-       {id:2,title:"湖北大红花商用设备有限公司!"}
-     ],
-     newsLIstanbul:[],
-     newsIshow:true
+      titleIndex:0,//控制新闻标题
+      CompanyNews:[],//新闻列表
+      newsTitle:[],//新闻类型
     };
   },
   created(){
-    this.newsLIstanbul = this.CompanyNews
+    this._getNewsType();
   },
   methods:{
-    changeNewsTitle(id){
-      this.index = id;
-      this.newsIshow =!this.newsIshow
+    //首页新闻类型，列表
+     _getNewsType(){
+      getNewsType({}).then( res => {
+        if(res.status == true){
+          this.CompanyNews = res.data.news_list;
+          this.newsTitle = res.data.type_list
+        }
+      })
+    },
+    _getNewsList(id){
+      let data ={
+        type_id:id,
+        page_count:10,
+        page:1
+      }
+      this.CompanyNews = [];
+      getNewsList(data).then(res =>{
+        if(res.status == true){
+          this.CompanyNews = res.data.list;
+        }
+      })
+    },
+    changeNewsTitle(index,id){
+      this.titleIndex = index;
+       this._getNewsList(id)
     },
     changeNews(id){
-      this.newsId=id;
-    },
-    changeIndustryNews(id){
-      this.IndustryNewsId=id;
+      this.$router.push({
+        path:`/contendetail`,
+        query:{
+          id:id
+        }
+     })
     },
     goNewsCenter(){
       this.$router.push({path:"/newscenter",query:{index:this.index}})
