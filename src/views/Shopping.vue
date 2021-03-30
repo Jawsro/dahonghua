@@ -89,7 +89,6 @@ export default {
   },
    methods: {
     onSubmit(values) {
-      console.log('submit', values);
       if(submitLocks){
         return false ;
       }
@@ -105,7 +104,6 @@ export default {
       submitLocks = true;
       this.submitDisabled = true;
       setOrderForm(data).then(res =>{
-        console.log(res)
         if(res.status == true){
           Dialog.alert({
             title: '提示',

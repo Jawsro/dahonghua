@@ -59,7 +59,6 @@ export default {
     onLoad(){
       this.page ++;
       this._getCaseList();
-      console.log(1212)
     }
   }
 
