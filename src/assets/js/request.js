@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {Dialog} from 'vant';
 
-var baseUrl = "http://dahonghua.cn";
+var baseUrl = "http://dahonghua.shangyouyun.cn";
 
 var  HttpRequest={
     getRequest({ url, data = {}, method = "GET" }) {
