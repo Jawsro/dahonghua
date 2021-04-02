@@ -95,6 +95,8 @@ export default {
       this.active =name;
       this.page = 1;
       this.sortList = this.productsSortList[this.active].type_level2 || []
+      this.type_level2Id = this.sortList[0].id
+      this._getProductList(this.type_level2Id)
     },
     changeLevel2(name){
       this.type_level2Id = this.sortList[name].id;

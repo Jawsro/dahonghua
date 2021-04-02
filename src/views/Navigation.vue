@@ -8,7 +8,7 @@
     </div>
     <div @click="goNavigation" class="adress">
       <span style="margin-right:8px">地址：</span>
-      <span class="adress-text">武汉市硚口区操场角6号汉华花园b座11- 5号</span>
+      <span class="adress-text">湖北省宜都市红花套镇红花套村</span>
     </div>
   </div>
 </template>
